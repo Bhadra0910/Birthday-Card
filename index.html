@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            overflow: hidden;
+        }
+        
+        .container {
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .heading {
+            color: #d23669;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .sub-heading {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .button {
+            padding: 1rem 2rem;
+            background-color: #ff6b9d;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background-color: #ff4785;
+        }
+        
+        .birthday-emoji {
+            position: absolute;
+            font-size: 1.5rem;
+            top: -10%;
+            animation: fall linear;
+            user-select: none;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
+            }
+        }
+        
+        .cake {
+            font-size: 4rem;
+            margin: 1rem 0;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cake">🎂</div>
+        <h1 class="heading">Happy Birthday!</h1>
+        <h2 class="sub-heading">You're amazing and deserve the best day!</h2>
+        <button class="button" id="btn">Click for Birthday Surprise</button>
+    </div>
+
+    <script>
+        const btn = document.getElementById('btn');
+        const container = document.querySelector('.container');
+        const subHeading = document.querySelector('.sub-heading');
+        
+        const messages = [
+            "Wishing you the happiest of birthdays!",
+            "May your day be filled with joy and cake!",
+            "Another year older, another year wiser!",
+            "Hope all your birthday wishes come true!",
+            "You're not getting older, you're getting better!",
+            "Age is just a number, but you're timeless!",
+            "Celebrate you today and always!"
+        ];
+        
+        const emojis = ["🎂", "🎉", "🎁", "🎈", "🥳", "✨", "🍰", "🎊"];
+        
+        // Initial animation
+        window.onload = function() {
+            for(let i = 0; i < 20; i++) {
+                setTimeout(createFallingEmoji, i * 200);
+            }
+            
+            // Rotate messages every 3 seconds
+            setInterval(rotateMessage, 3000);
+        };
+        
+        btn.addEventListener('click', function() {
+            // Alert message
+            alert("🎉 SURPRISE! 🎉\n\nHappy Birthday to someone truly special!");
+            
+            // Create more emojis
+            for(let i = 0; i < 30; i++) {
+                setTimeout(createFallingEmoji, i * 100);
+            }
+        });
+        
+        function createFallingEmoji() {
+            const emoji = document.createElement('div');
+            emoji.classList.add('birthday-emoji');
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.animationDuration = Math.random() * 3 + 2 + 's';
+            emoji.style.fontSize = Math.random() * 20 + 20 + 'px';
+            document.body.appendChild(emoji);
+            
+            setTimeout(() => {
+                emoji.remove();
+            }, 5000);
+        }
+        
+        function rotateMessage() {
+            const currentIndex = messages.indexOf(subHeading.textContent);
+            const nextIndex = (currentIndex + 1) % messages.length;
+            subHeading.textContent = messages[nextIndex];
+            
+            // Add animation effect
+            subHeading.style.opacity = 0;
+            setTimeout(() => {
+                subHeading.style.opacity = 1;
+            }, 500);
+        }
+    </script>
+</body>
+</html>
